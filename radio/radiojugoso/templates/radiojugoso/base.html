@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}RadioJugoso{% endblock %}</title>
+    {% load bootstrap5 %}
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+
+    <link rel="stylesheet" href="{% static 'css/contacto.css' %}">
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+</head>
+<body>
+    <!--------Inicio de Barra de Navegacion(Menu)--------->
+    <header class="p-1 text-bg-dark">
+        <div class="container">
+          <div
+            class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+          >
+            <ul
+              class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 menux"
+            >
+              <li>
+                <a href="{% url 'index' %}" class="nav-link px-2 text-white menux">Inicio</a>
+              </li>
+              <li><a href="{% url 'noticias' %}" class="nav-link px-2 text-white">noticias</a></li>
+              <li>
+                <a href="{% url 'galeria' %}" class="nav-link px-2 text-white">galeria</a>
+              </li>
+              <li>
+                <a href="{% url 'tienda' %}" class="nav-link px-2 text-white">Tienda</a>
+              </li>
+              <li>
+                <a href="{% url 'contacto' %}" class="nav-link px-2 text-white"
+                  >Contacto</a
+                >
+              </li>
+            </ul>
+    
+            <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+              <input
+                type="search"
+                class="form-control form-control-dark text-bg-dark"
+                placeholder="Buscar..."
+                aria-label="Buscar"
+              />
+            </form>
+    
+            <div class="text-end">
+              {% if user.is_authenticated %}
+                  <p class="text-white">Bienvenido, {{ user.username }}</p>
+                  <a href="{% url 'logout' %}" class="btn btn-outline-light me-2">Cerrar sesión</a>
+              {% else %}
+                  <button onclick="document.getElementById('id01').style.display='block'" type="button" class="btn btn-outline-light me-2">
+                      Iniciar sesión
+                  </button>
+                  <button onclick="window.location.href='{% url 'registro' %}'" type="button" class="btn btn-warning">
+                      Registrarse
+                  </button>
+              {% endif %}
+          </div>
+          
+          <div id="id01" class="modal">
+              <form class="modal-content animate" action="{% url 'login' %}" method="post">
+                  {% csrf_token %}
+                  <div class="imgcontainer">
+                      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Cerrar Modal">&times;</span>
+                      <img src="{% static 'img/img_avatar2.png' %}" alt="Avatar" class="avatar">
+                  </div>
+              
+                  <div class="container">
+                      <label for="username"><b>Usuario</b></label>
+                      <input type="text" placeholder="Ingrese su Usuario" name="username" id="username" required>
+              
+                      <label for="password"><b>Contraseña</b></label>
+                      <input type="password" placeholder="Ingrese su Contraseña" name="password" id="password" required>
+                          
+                      <button type="submit">Iniciar Sesión</button>
+                      <label>
+                          <input type="checkbox" checked="checked" name="remember"> Recuérdame
+                      </label>
+                  </div>
+              
+                  <div class="container" style="background-color:#f1f1f1">
+                      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancelar</button>
+                      <span class="psw"><a href="#">¿Olvidaste tu Contraseña?</a></span>
+                  </div>
+              </form>
+          </div>
+          
+
+            </div>
+          </div>
+        </div>
+      </header>
+  <!-----Final de Barra de Navegacion (Menu)------->
+
+  {% block content %}
+
+  {% endblock %}
+
+  <!-- Optional JavaScript -->
+  <!-- Popper.js first, then Bootstrap JS -->
+  {% bootstrap_javascript %}
+</body>
+</html>
+

@@ -1,0 +1,289 @@
+{% extends 'radiojugoso/base.html' %}
+{% load static %}
+
+
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda</title>
+    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'img/favicon-32x32.png' %}">
+    <style>
+        .cart-modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+  
+        .cart-modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+  
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+  
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Cambio de color para el texto dentro de .card-text */
+        .card-text {
+            color: #000000; /* Cambiar aquí al color deseado */
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- Inicio de Slider -->
+<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active" data-bs-interval="2000">
+      <img src="{% static 'img/slider1.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item" data-bs-interval="2000">
+      <img src="{% static 'img/slider2.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'img/slider4.jpg' %}" class="d-block w-100" alt="...">
+    </div>
+  </div>
+</div>
+<!-- Final de Slider -->
+<hr/>
+
+<!-- Contenedor de cards (Productos de la radio) -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Tiendita</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+            </li>
+            <li class="nav-item">
+                <button class="btn btn-primary" onclick="mostrarCarrito()">Ver Carrito</button>
+            </li>
+        </ul>
+    </div>
+  </nav>
+  
+  <div class="container-fluid">
+    <div class="row">
+    <!-- Producto 1 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock9.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $15.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo1', 15000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 2 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/bandarock.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $95.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo2', 95000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 3 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock1.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $25.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo3', 25000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 4 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/skrilex.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $85.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo4', 85000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 5 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock3.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $55.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo5', 55000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 6 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock2.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $65.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo6', 65000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 7 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock4.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $45.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo7', 45000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Producto 8 -->
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-3 col-xxl-3">
+      <div class="card" style="width: 100%; height: 100%;">
+        <img src="{% static 'img/rock7.jpg' %}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Polera Radio Jugoseo</h5>
+          <p class="card-text">Polera exclusiva de radio jugoseo manga corta de excelente calidad en su tela y fabricación puedes elegir tu color y también la opción de ponerle nombre en la parte de trasera anímate y usa la moda jugoseo.</p>
+          <p class="card-text"><strong>Precio: $25.000</strong></p>
+          <button class="btn btn-primary" onclick="agregarAlCarrito('Polera Radio Jugoseo8', 25000)">Comprar</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+<!-- Final de Contenedor de cards (Productos de la radio) -->
+
+<!-- Modal de Carrito -->
+<div id="cartModal" class="cart-modal">
+    <div class="cart-modal-content">
+        <span class="close" onclick="cerrarCarrito()">&times;</span>
+        <h2>Carrito de Compras</h2>
+        <ul id="cartItems"></ul>
+        <button class="btn btn-success" onclick="finalizarCompra()">Finalizar Compra</button>
+    </div>
+  </div>
+<!-- Fin Modal de Carrito -->
+
+<script>
+    // Verificar si hay un carrito guardado en el almacenamiento local
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+  
+    // Función para agregar productos al carrito
+    function agregarAlCarrito(nombreProducto, precioProducto) {
+        // Buscar si el producto ya está en el carrito
+        let productoExistente = carrito.find(item => item.nombre === nombreProducto);
+  
+        if (productoExistente) {
+            // Si el producto ya está en el carrito, incrementar la cantidad
+            productoExistente.cantidad += 1;
+        } else {
+            // Si el producto no está en el carrito, agregarlo
+            carrito.push({ nombre: nombreProducto, precio: precioProducto, cantidad: 1 });
+        }
+  
+        // Guardar el carrito actualizado en el almacenamiento local
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+  
+        // Mostrar un mensaje de confirmación
+        alert(nombreProducto + ' ha sido añadido al carrito.');
+    }
+  
+    // Función para mostrar el carrito
+    function mostrarCarrito() {
+        const cartModal = document.getElementById('cartModal');
+        const cartItems = document.getElementById('cartItems');
+        cartItems.innerHTML = '';
+        let total = 0;
+        carrito.forEach(item => {
+            const li = document.createElement('li');
+            li.textContent = `${item.nombre} - Cantidad: ${item.cantidad} - Precio unitario: $${item.precio} - Total: $${item.precio * item.cantidad}`;
+            cartItems.appendChild(li);
+            total += item.precio * item.cantidad;
+        });
+        const totalElement = document.createElement('li');
+        totalElement.textContent = `Total de la compra: $${total}`;
+        cartItems.appendChild(totalElement);
+        cartModal.style.display = 'block';
+  
+        // Cerrar el modal si se hace clic fuera de él
+        window.onclick = function(event) {
+            if (event.target === cartModal) {
+                cartModal.style.display = 'none';
+            }
+        }
+    }
+  
+    // Función para cerrar el carrito
+    function cerrarCarrito() {
+        const cartModal = document.getElementById('cartModal');
+        cartModal.style.display = 'none';
+    }
+  
+    // Función para finalizar la compra
+    function finalizarCompra() {
+        alert('Gracias por tu compra!');
+        carrito = [];
+        localStorage.removeItem('carrito');
+        cerrarCarrito();
+    }
+  </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-6EAPyWS4XNSsueonjggek1J1HFl3sT5tP1dCnq3ofJjGAf/8KHy8WQ6YP0hHNo5" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-2DwToD3QkW6V0Ea/1Gmv9wll5MwZmVcM5v88l1fMT2FJ0Gqj+96fc2Ck6XaCmFWN" crossorigin="anonymous"></script>
+
+</body>
+</html>
+
+
+
+{% endblock %}
